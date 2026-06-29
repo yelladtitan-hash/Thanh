@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thanh Phong Trinh — Artist</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Inter:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    /* ── TOKENS ── */
+    :root {
+      --white:   #FFFFFF;
+      --gray-1:  #F5F5F3;
+      --gray-2:  #E8E8E5;
+      --gray-3:  #AEAEAA;
+      --gray-4:  #6B6B67;
+      --yuzu:    #C8E84A;
+      --yuzu-d:  #A8C830;
+      --text:    #1A1A18;
+      --nav-h:   72px;
+    }
+
+    /* ── RESET ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      background: var(--white);
+      color: var(--text);
+      font-size: 15px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--nav-h);
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--gray-2);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      z-index: 100;
+    }
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 20px;
+      letter-spacing: 0.08em;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .nav-logo span {
+      color: var(--yuzu-d);
+    }
+    .nav-links {
+      display: flex;
+      gap: 40px;
+      list-style: none;
+    }
+    .nav-links a {
+      text-decoration: none;
+      font-size: 12px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gray-4);
+      transition: color 0.25s;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -3px; left: 0;
+      width: 0; height: 1px;
+      background: var(--yuzu);
+      transition: width 0.3s ease;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-links a:hover::after { width: 100%; }
+
+    /* ── HERO ── */
+    #home {
+      min-height: 100vh;
+      padding-top: var(--nav-h);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+    }
+    .hero-text {
+      padding: 80px 48px 80px 80px;
+    }
+    .hero-eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gray-3);
+      margin-bottom: 28px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 28px;
+      height: 1px;
+      background: var(--yuzu);
+    }
+    .hero-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(52px, 6vw, 88px);
+      line-height: 1.02;
+      letter-spacing: -0.01em;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .hero-name em {
+      font-style: italic;
+      color: var(--gray-3);
+    }
+    .hero-tagline {
+      font-size: 14px;
+      color: var(--gray-4);
+      letter-spacing: 0.04em;
+      margin-top: 24px;
+      max-width: 340px;
+    }
+    .hero-cta {
+      margin-top: 48px;
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+    .btn-primary {
+      display: inline-block;
+      padding: 13px 32px;
+      background: var(--yuzu);
+      color: var(--text);
+      text-decoration: none;
+      font-size: 12px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      font-weight: 400;
+      transition: background 0.25s, transform 0.2s;
+    }
+    .btn-primary:hover { background: var(--yuzu-d); transform: translateY(-1px); }
+    .btn-ghost {
+      display: inline-block;
+      font-size: 12px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gray-4);
+      text-decoration: none;
+      border-bottom: 1px solid var(--gray-2);
+      padding-bottom: 2px;
+      transition: color 0.25s, border-color 0.25s;
+    }
+    .btn-ghost:hover { color: var(--text); border-color: var(--yuzu); }
+
+    .hero-image {
+      height: 100vh;
+      background: var(--gray-1);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-image-inner {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, var(--gray-1) 0%, var(--gray-2) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .hero-placeholder {
+      text-align: center;
+      color: var(--gray-3);
+    }
+    .hero-placeholder svg { opacity: 0.4; margin-bottom: 12px; }
+    .hero-placeholder p { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; }
+    .hero-accent-line {
+      position: absolute;
+      left: 0; top: 50%;
+      width: 3px; height: 120px;
+      background: var(--yuzu);
+      transform: translateY(-50%);
+    }
+
+    /* ── SECTION SHARED ── */
+    section { padding: 120px 80px; }
+    .section-label {
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gray-3);
+      margin-bottom: 56px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .section-label::before {
+      content: '';
+      display: inline-block;
+      width: 28px;
+      height: 1px;
+      background: var(--yuzu);
+    }
+    h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(36px, 4vw, 56px);
+      line-height: 1.1;
+      margin-bottom: 40px;
+    }
+
+    /* ── WORKS ── */
+    #works { background: var(--white); }
+    .works-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 64px;
+    }
+    .works-header > div { max-width: 480px; }
+    .works-header p { color: var(--gray-4); font-size: 14px; line-height: 1.8; }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+    .gallery-item {
+      aspect-ratio: 3/4;
+      background: var(--gray-1);
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    .gallery-item:first-child {
+      grid-column: span 2;
+      aspect-ratio: auto;
+    }
+    .gallery-item-inner {
+      width: 100%;
+      height: 100%;
+      min-height: 320px;
+      background: linear-gradient(145deg, var(--gray-1), var(--gray-2));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.5s ease;
+    }
+    .gallery-item:hover .gallery-item-inner { transform: scale(1.03); }
+    .gallery-item-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(200, 232, 74, 0.08);
+      opacity: 0;
+      transition: opacity 0.3s;
+      display: flex;
+      align-items: flex-end;
+      padding: 24px;
+    }
+    .gallery-item:hover .gallery-item-overlay { opacity: 1; }
+    .gallery-item-label {
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text);
+      background: var(--white);
+      padding: 8px 16px;
+    }
+    .gallery-placeholder {
+      color: var(--gray-3);
+      text-align: center;
+    }
+    .gallery-placeholder svg { opacity: 0.35; }
+    .gallery-placeholder p { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 8px; }
+
+    /* ── ABOUT ── */
+    #about { background: var(--gray-1); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .about-image {
+      aspect-ratio: 3/4;
+      background: var(--gray-2);
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gray-3);
+    }
+    .about-image::after {
+      content: '';
+      position: absolute;
+      top: -12px;
+      right: -12px;
+      width: 60px;
+      height: 60px;
+      border-top: 2px solid var(--yuzu);
+      border-right: 2px solid var(--yuzu);
+    }
+    .about-image::before {
+      content: '';
+      position: absolute;
+      bottom: -12px;
+      left: -12px;
+      width: 60px;
+      height: 60px;
+      border-bottom: 2px solid var(--yuzu);
+      border-left: 2px solid var(--yuzu);
+    }
+    .about-img-placeholder {
+      text-align: center;
+      color: var(--gray-3);
+    }
+    .about-img-placeholder svg { opacity: 0.35; }
+    .about-img-placeholder p { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 8px; }
+    .about-text p {
+      color: var(--gray-4);
+      font-size: 15px;
+      line-height: 1.9;
+      margin-bottom: 20px;
+    }
+    .about-stats {
+      display: flex;
+      gap: 48px;
+      margin-top: 48px;
+      padding-top: 40px;
+      border-top: 1px solid var(--gray-2);
+    }
+    .stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 40px;
+      font-weight: 300;
+      color: var(--text);
+      line-height: 1;
+    }
+    .stat-num span { color: var(--yuzu-d); }
+    .stat-label {
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gray-3);
+      margin-top: 6px;
+    }
+
+    /* ── EXHIBITIONS ── */
+    #exhibitions { background: var(--white); }
+    .exhibition-list { max-width: 720px; }
+    .exhibition-item {
+      display: flex;
+      gap: 40px;
+      align-items: baseline;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--gray-2);
+      transition: background 0.2s;
+    }
+    .exhibition-item:first-of-type { border-top: 1px solid var(--gray-2); }
+    .ex-year {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 13px;
+      color: var(--gray-3);
+      min-width: 48px;
+    }
+    .ex-title {
+      font-size: 15px;
+      color: var(--text);
+      flex: 1;
+    }
+    .ex-location {
+      font-size: 12px;
+      color: var(--gray-3);
+      letter-spacing: 0.06em;
+    }
+    .ex-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--yuzu);
+      border-radius: 50%;
+      flex-shrink: 0;
+      align-self: center;
+    }
+
+    /* ── CONTACT ── */
+    #contact { background: var(--gray-1); }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+    .contact-info p { color: var(--gray-4); line-height: 1.9; margin-bottom: 40px; }
+    .contact-detail {
+      margin-bottom: 24px;
+    }
+    .contact-detail-label {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gray-3);
+      margin-bottom: 4px;
+    }
+    .contact-detail-value {
+      font-size: 15px;
+      color: var(--text);
+    }
+    .contact-detail-value a {
+      color: var(--text);
+      text-decoration: none;
+      border-bottom: 1px solid var(--gray-2);
+      transition: border-color 0.2s;
+    }
+    .contact-detail-value a:hover { border-color: var(--yuzu); }
+    .contact-form { display: flex; flex-direction: column; gap: 20px; }
+    .form-group { display: flex; flex-direction: column; gap: 8px; }
+    .form-label {
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gray-3);
+    }
+    .form-input, .form-textarea {
+      background: var(--white);
+      border: 1px solid var(--gray-2);
+      padding: 14px 16px;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.25s;
+      width: 100%;
+    }
+    .form-input:focus, .form-textarea:focus { border-color: var(--yuzu); }
+    .form-textarea { resize: vertical; min-height: 120px; }
+    .form-submit {
+      align-self: flex-start;
+      padding: 14px 36px;
+      background: var(--text);
+      color: var(--white);
+      border: none;
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.25s, color 0.25s;
+    }
+    .form-submit:hover { background: var(--yuzu); color: var(--text); }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 40px 80px;
+      background: var(--white);
+      border-top: 1px solid var(--gray-2);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 16px;
+      letter-spacing: 0.06em;
+      color: var(--gray-4);
+    }
+    .footer-copy { font-size: 12px; color: var(--gray-3); letter-spacing: 0.04em; }
+    .footer-social { display: flex; gap: 24px; }
+    .footer-social a {
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gray-3);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-social a:hover { color: var(--yuzu-d); }
+
+    /* ── YUZU CURSOR ACCENT ── */
+    .yuzu-tag {
+      display: inline-block;
+      background: var(--yuzu);
+      color: var(--text);
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      margin-left: 12px;
+      vertical-align: middle;
+    }
+
+    /* ── SCROLL INDICATOR ── */
+    .scroll-hint {
+      position: absolute;
+      bottom: 40px;
+      left: 80px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gray-3);
+    }
+    .scroll-line {
+      width: 1px;
+      height: 40px;
+      background: var(--gray-2);
+      position: relative;
+      overflow: hidden;
+    }
+    .scroll-line::after {
+      content: '';
+      position: absolute;
+      top: -100%;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--yuzu);
+      animation: scrollAnim 1.8s ease-in-out infinite;
+    }
+    @keyframes scrollAnim {
+      0%   { top: -100%; }
+      100% { top: 100%; }
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 768px) {
+      nav { padding: 0 24px; }
+      .nav-links { gap: 20px; }
+      #home { grid-template-columns: 1fr; }
+      .hero-text { padding: 60px 24px 40px; }
+      .hero-image { height: 60vw; min-height: 280px; }
+      section { padding: 80px 24px; }
+      .works-header { flex-direction: column; gap: 20px; }
+      .gallery-grid { grid-template-columns: 1fr 1fr; }
+      .gallery-item:first-child { grid-column: span 2; }
+      .about-grid { grid-template-columns: 1fr; gap: 48px; }
+      .contact-grid { grid-template-columns: 1fr; gap: 48px; }
+      footer { flex-direction: column; gap: 20px; text-align: center; }
+      .scroll-hint { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#home" class="nav-logo">Thanh Phong <span>Trinh</span></a>
+    <ul class="nav-links">
+      <li><a href="#works">Works</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#exhibitions">Exhibitions</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="home" style="padding: 0; position: relative;">
+    <div class="hero-text">
+      <div class="hero-eyebrow">Visual Artist &amp; Painter</div>
+      <h1 class="hero-name">
+        Thanh<br/>
+        Phong<br/>
+        <em>Trinh</em>
+      </h1>
+      <p class="hero-tagline">
+        Exploring the space between stillness and movement — through paint, texture, and light.
+      </p>
+      <div class="hero-cta">
+        <a href="#works" class="btn-primary">View Works</a>
+        <a href="#contact" class="btn-ghost">Commission</a>
+      </div>
+    </div>
+    <div class="hero-image">
+      <div class="hero-accent-line"></div>
+      <div class="hero-image-inner">
+        <div class="hero-placeholder">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+            <rect x="3" y="3" width="18" height="18" rx="1"/>
+            <circle cx="8.5" cy="8.5" r="1.5"/>
+            <polyline points="21 15 16 10 5 21"/>
+          </svg>
+          <p>Featured Artwork</p>
+        </div>
+      </div>
+    </div>
+    <div class="scroll-hint" style="position:absolute; bottom:40px; left:80px; display:flex; align-items:center; gap:12px; font-size:10px; letter-spacing:0.18em; text-transform:uppercase; color:#AEAEAA;">
+      <div class="scroll-line"></div>
+      Scroll
+    </div>
+  </section>
+
+  <!-- WORKS -->
+  <section id="works">
+    <div class="works-header">
+      <div>
+        <div class="section-label">Selected Works</div>
+        <h2>Portfolio <span class="yuzu-tag">2020–2024</span></h2>
+        <p>A curated selection of paintings exploring form, light, and the quiet drama of everyday moments.</p>
+      </div>
+      <a href="#contact" class="btn-ghost" style="white-space:nowrap;">All Works →</a>
+    </div>
+
+    <div class="gallery-grid">
+      <div class="gallery-item">
+        <div class="gallery-item-inner">
+          <div class="gallery-placeholder">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+              <rect x="3" y="3" width="18" height="18" rx="1"/>
+              <circle cx="8.5" cy="8.5" r="1.5"/>
+              <polyline points="21 15 16 10 5 21"/>
+            </svg>
+            <p>Main Artwork</p>
+          </div>
+        </div>
+        <div class="gallery-item-overlay">
+          <span class="gallery-item-label">Untitled I — Oil on Canvas</span>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-item-inner">
+          <div class="gallery-placeholder">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+              <rect x="3" y="3" width="18" height="18" rx="1"/>
+              <circle cx="8.5" cy="8.5" r="1.5"/>
+              <polyline points="21 15 16 10 5 21"/>
+            </svg>
+            <p>Artwork</p>
+          </div>
+        </div>
+        <div class="gallery-item-overlay">
+          <span class="gallery-item-label">Silent Noon — Acrylic</span>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-item-inner">
+          <div class="gallery-placeholder">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+              <rect x="3" y="3" width="18" height="18" rx="1"/>
+              <circle cx="8.5" cy="8.5" r="1.5"/>
+              <polyline points="21 15 16 10 5 21"/>
+            </svg>
+            <p>Artwork</p>
+          </div>
+        </div>
+        <div class="gallery-item-overlay">
+          <span class="gallery-item-label">Grey Interval — Mixed</span>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-item-inner">
+          <div class="gallery-placeholder">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+              <rect x="3" y="3" width="18" height="18" rx="1"/>
+              <circle cx="8.5" cy="8.5" r="1.5"/>
+              <polyline points="21 15 16 10 5 21"/>
+            </svg>
+            <p>Artwork</p>
+          </div>
+        </div>
+        <div class="gallery-item-overlay">
+          <span class="gallery-item-label">Pale Morning — Oil</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="about-grid">
+      <div class="about-image">
+        <div class="about-img-placeholder">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+            <circle cx="12" cy="7" r="4"/>
+          </svg>
+          <p>Artist Photo</p>
+        </div>
+      </div>
+      <div class="about-text">
+        <div class="section-label">About</div>
+        <h2>The Artist</h2>
+        <p>
+          Thanh Phong Trinh is a visual artist and painter whose work investigates the tension between graphic precision and painterly intuition. Working primarily in oils and acrylics, his canvases distill reality into its most essential forms.
+        </p>
+        <p>
+          Influenced by graphic realism and the meditative traditions of East Asian aesthetics, Trinh constructs compositions where negative space becomes as meaningful as painted form — where restraint is itself an act of expression.
+        </p>
+        <p>
+          Based in Germany, he has exhibited internationally and continues to explore the visual language of quietude.
+        </p>
+        <div class="about-stats">
+          <div>
+            <div class="stat-num">12<span>+</span></div>
+            <div class="stat-label">Years Active</div>
+          </div>
+          <div>
+            <div class="stat-num">40<span>+</span></div>
+            <div class="stat-label">Exhibitions</div>
+          </div>
+          <div>
+            <div class="stat-num">200<span>+</span></div>
+            <div class="stat-label">Works Created</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXHIBITIONS -->
+  <section id="exhibitions">
+    <div class="section-label">Exhibition History</div>
+    <h2>Selected Shows</h2>
+    <div class="exhibition-list">
+      <div class="exhibition-item">
+        <span class="ex-year">2024</span>
+        <div class="ex-dot"></div>
+        <span class="ex-title">Stille Formen — Solo Exhibition</span>
+        <span class="ex-location">Mannheim, DE</span>
+      </div>
+      <div class="exhibition-item">
+        <span class="ex-year">2023</span>
+        <div class="ex-dot"></div>
+        <span class="ex-title">Graphic Realism Collective</span>
+        <span class="ex-location">Berlin, DE</span>
+      </div>
+      <div class="exhibition-item">
+        <span class="ex-year">2022</span>
+        <div class="ex-dot"></div>
+        <span class="ex-title">Between Lines — Group Show</span>
+        <span class="ex-location">Frankfurt, DE</span>
+      </div>
+      <div class="exhibition-item">
+        <span class="ex-year">2021</span>
+        <div class="ex-dot"></div>
+        <span class="ex-title">New Realism — International Fair</span>
+        <span class="ex-location">Vienna, AT</span>
+      </div>
+      <div class="exhibition-item">
+        <span class="ex-year">2020</span>
+        <div class="ex-dot"></div>
+        <span class="ex-title">Emerging Voices — Group Exhibition</span>
+        <span class="ex-location">Heidelberg, DE</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="contact-grid">
+      <div class="contact-info">
+        <div class="section-label">Contact</div>
+        <h2>Let's Connect</h2>
+        <p>
+          Available for commissions, exhibitions, and collaborations. All inquiries about original works and prints are welcome.
+        </p>
+        <div class="contact-detail">
+          <div class="contact-detail-label">Email</div>
+          <div class="contact-detail-value">
+            <a href="mailto:studio@thanhphongtrinh.com">studio@thanhphongtrinh.com</a>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-label">Location</div>
+          <div class="contact-detail-value">Mannheim, Germany</div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-label">Website</div>
+          <div class="contact-detail-value">
+            <a href="https://thanhphongtrinh.com" target="_blank">thanhphongtrinh.com</a>
+          </div>
+        </div>
+      </div>
+      <form class="contact-form" onsubmit="return false;">
+        <div class="form-group">
+          <label class="form-label">Name</label>
+          <input class="form-input" type="text" placeholder="Your name" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email</label>
+          <input class="form-input" type="email" placeholder="your@email.com" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Subject</label>
+          <input class="form-input" type="text" placeholder="Commission / Exhibition / Press …" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Message</label>
+          <textarea class="form-textarea" placeholder="Tell me about your project …"></textarea>
+        </div>
+        <button class="form-submit" type="submit">Send Message</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">Thanh Phong Trinh</div>
+    <div class="footer-copy">© 2024 — All rights reserved</div>
+    <div class="footer-social">
+      <a href="https://thanhphongtrinh.com" target="_blank">Website</a>
+      <a href="#">Instagram</a>
+      <a href="#">LinkedIn</a>
+    </div>
+  </footer>
+
+</body>
+</html>
